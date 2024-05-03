@@ -29,11 +29,12 @@ const DropdownComponent = ({ value, setValue, label, data, placeholder }: Native
         dropdown: { maxHeight: 200, overflowY: 'auto', padding: '4px' },
       }}
       size="sm"
+      searchable
       radius="md"
       value={value}
       rightSectionPointerEvents="none"
       rightSection={icon}
-      onChange={(event: any) => setValue(event.currentTarget.value)} label={label}
+      onChange={(_value, option) => _value && setValue(_value)} label={label}
       data={data} />
   );
 };

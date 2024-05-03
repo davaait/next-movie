@@ -1,14 +1,30 @@
 'use client';
-
 import { AppShell, SimpleGrid, Text } from '@mantine/core';
-import DropdownComponent from './ui/dropdowns/dropdown';
-import { useState } from 'react';
-import InputNumberComponent from './ui/inputs/inputNumber';
-import TextButton from './ui/buttons/textButton';
 import MovieCard from './ui/movie-card/movie-card';
+import FiltersComponent from './ui/filters/filtersComponent';
+import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import { getMovieGenres, getMovies } from './lib/actions';
+import { useRouter } from 'next/router';
+import { usePathname, useSearchParams } from 'next/navigation';
+
+type Genre = {
+  id: number;
+  name: string;
+}
 
 export default function HomePage() {
-  const [value, setValue] = useState('');
+  const searchParams = useSearchParams()
+  const [filterValue, setFilterValue] = useState('');
+  const { data, error, isLoading } = useSWR('genres', getMovieGenres);
+  const { data: moviesData } = useSWR('movies', getMovies);
+  console.log(moviesData);
+  const genres = data && data.genres.map((el: Genre) => el.name);
+  const [genreValue, setGenreValue] = useState('');
+  const [releaseYear, setReleaseYear] = useState('');
+  const [ratingFrom, setRatingFrom] = useState<string | number>('0.0');
+  const [ratingTo, setRatingTo] = useState<string | number>('0.0');
+  const [sortBy, setSortBy] = useState('');
   return (
     <AppShell navbar={{
       width: 280,
@@ -17,39 +33,10 @@ export default function HomePage() {
       <AppShell.Main>
         <div style={{ width: '100%', height: '100vh', padding: '40px 80px 0 80px', backgroundColor: '#F5F5F6' }}>
           <Text style={{ fontWeight: 700, fontFamily: 'Inter', fontSize: '32px' }}>Movies</Text>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            gap: '16px',
-            alignItems: 'flex-end',
-            marginTop: 42,
-            justifyContent: 'space-between',
-            flexWrap: 'wrap',
-          }}>
-            <DropdownComponent placeholder={'Select genre'} value={''} data={['Comedy', 'Thriller']} setValue={setValue}
-                               label="Genres" />
-            <DropdownComponent placeholder={'Select release year'} value={''} data={['2011', '2012']}
-                               setValue={setValue} label="Release year" />
-            <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>
-              <InputNumberComponent placeholder={'From'} label={'Ratings'} />
-              <InputNumberComponent placeholder={'To'} label={''} />
-            </div>
-            <TextButton />
-          </div>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'row',
-            width: '100%',
-            gap: '16px',
-            alignItems: 'flex-end',
-            marginTop: 24,
-            justifyContent: 'flex-end',
-          }}>
-            <DropdownComponent placeholder={'Sort by'} value={''} data={['Most popular', 'Less popular']}
-                               setValue={setValue}
-                               label="Sort by" />
-          </div>
+          <FiltersComponent data={genres} genreValue={genreValue} setGenreValue={setGenreValue} ratingFrom={ratingFrom}
+                            ratingTo={ratingTo} setRatingFrom={setRatingFrom} setRatingTo={setRatingTo}
+                            releaseYear={releaseYear} setReleaseYear={setReleaseYear} setSortBy={setSortBy}
+                            sortBy={sortBy} />
           <SimpleGrid cols={{ base: 2, sm: 2 }} spacing="md" mt={24}>
             <MovieCard />
             <MovieCard />

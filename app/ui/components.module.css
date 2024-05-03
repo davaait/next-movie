@@ -11,3 +11,36 @@
         color: #FFFFFF;
     }
 }
+
+.link-active {
+    color: #9854F6;
+    font-weight: 600;
+    background-color: #E5D5FA;
+    text-decoration: none;
+    border-radius: 8px;
+    display: flex;
+    height: 42px;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 10px;
+    margin-bottom: 10px;
+    &:hover {
+        color: #BD93F7;
+    }
+}
+
+.link {
+    color: #000000;
+    font-weight: 400;
+    background-color: #F2EBF9;
+    text-decoration: none;
+    border-radius: 8px;
+    display: flex;
+    height: 42px;
+    justify-content: flex-start;
+    padding: 10px;
+    margin-bottom: 10px;
+    &:hover {
+        color: #BD93F7;
+    }
+}
