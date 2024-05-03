@@ -1,24 +1,31 @@
 'use client';
 import { AppShell, SimpleGrid, Text } from '@mantine/core';
-import MovieCard from './ui/movie-card/movie-card';
+import MovieCard, { MovieCardProps } from './ui/movie-card/movie-card';
 import FiltersComponent from './ui/filters/filtersComponent';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import useSWR from 'swr';
 import { getMovieGenres, getMovies } from './lib/actions';
-import { useRouter } from 'next/router';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 type Genre = {
   id: number;
   name: string;
 }
 
+type Movie = {
+  original_title: string;
+  poster_path: string;
+  release_date: string;
+  vote_average: number;
+  vote_count: number;
+  genre_ids: number[];
+}
+
 export default function HomePage() {
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const [filterValue, setFilterValue] = useState('');
   const { data, error, isLoading } = useSWR('genres', getMovieGenres);
   const { data: moviesData } = useSWR('movies', getMovies);
-  console.log(moviesData);
   const genres = data && data.genres.map((el: Genre) => el.name);
   const [genreValue, setGenreValue] = useState('');
   const [releaseYear, setReleaseYear] = useState('');
@@ -38,9 +45,11 @@ export default function HomePage() {
                             releaseYear={releaseYear} setReleaseYear={setReleaseYear} setSortBy={setSortBy}
                             sortBy={sortBy} />
           <SimpleGrid cols={{ base: 2, sm: 2 }} spacing="md" mt={24}>
-            <MovieCard />
-            <MovieCard />
-            <MovieCard />
+            {moviesData && moviesData.results.map((el: Movie, index: number) => (
+              <MovieCard key={index} originalTitle={el.original_title} voteCount={el.vote_count}
+                         voteAverage={el.vote_average}
+                         releaseDate={el.release_date} posterPath={el.poster_path} genreIds={el.genre_ids} />
+            ))}
           </SimpleGrid>
         </div>
       </AppShell.Main>

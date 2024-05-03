@@ -3,7 +3,16 @@ import { Flex, Group, rem } from '@mantine/core';
 import { FilledStarIcon } from '../icons/FilledStar';
 import { BlueStarIcon } from '../icons/BlueStar';
 
-const MovieCard = () => {
+export type MovieCardProps = {
+  originalTitle: string;
+  posterPath: string;
+  releaseDate: string;
+  voteAverage: number;
+  voteCount: number;
+  genreIds: number[];
+}
+
+const MovieCard = ({ originalTitle, voteCount, voteAverage, releaseDate, posterPath, genreIds }: MovieCardProps) => {
   return (
     <div style={{
       width: '100%',
@@ -17,7 +26,7 @@ const MovieCard = () => {
       justifyContent: 'space-between',
       alignItems: 'flex-start',
     }}>
-      <Flex justify={'flex-start'} h={"100%"}>
+      <Flex justify={'flex-start'} h={'100%'}>
         <div style={{
           backgroundColor: '#EAEBED',
           height: '100%',
@@ -38,8 +47,8 @@ const MovieCard = () => {
             justifyContent: 'space-between',
           }}>
           <Flex direction="column">
-            <span style={{ fontWeight: 600, fontSize: '20px', color: '#9854F6' }}>The Green Mile</span>
-            <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>1999</span>
+            <span style={{ fontWeight: 600, fontSize: '20px', color: '#9854F6' }}>{originalTitle}</span>
+            <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>{releaseDate}</span>
             <Flex align="center" gap={4}>
               <FilledStarIcon style={{ width: rem(28), height: rem(28) }} />
               <span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>9.3</span>
