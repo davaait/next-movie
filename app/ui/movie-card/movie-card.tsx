@@ -2,8 +2,11 @@ import { NoPosterIcon } from '../icons/NoPosterIcon';
 import { Flex, Group, rem } from '@mantine/core';
 import { FilledStarIcon } from '../icons/FilledStar';
 import { BlueStarIcon } from '../icons/BlueStar';
+import { StarIcon } from '../icons/Star';
+import { GenreType } from '../../page';
 
 export type MovieCardProps = {
+  genres: Array<GenreType>;
   originalTitle: string;
   posterPath: string;
   releaseDate: string;
@@ -12,7 +15,21 @@ export type MovieCardProps = {
   genreIds: number[];
 }
 
-const MovieCard = ({ originalTitle, voteCount, voteAverage, releaseDate, posterPath, genreIds }: MovieCardProps) => {
+const MovieCard = ({
+                     genres,
+                     originalTitle,
+                     voteCount,
+                     voteAverage,
+                     releaseDate,
+                     posterPath,
+                     genreIds,
+                   }: MovieCardProps) => {
+  const getGenresText = (genresIds: number[]) => {
+    if (genres) {
+      return genres.filter((el: GenreType) => genresIds.includes(el.id))
+        .map((el: GenreType) => el.name).join(', ');
+    }
+  };
   return (
     <div style={{
       width: '100%',
@@ -27,16 +44,21 @@ const MovieCard = ({ originalTitle, voteCount, voteAverage, releaseDate, posterP
       alignItems: 'flex-start',
     }}>
       <Flex justify={'flex-start'} h={'100%'}>
-        <div style={{
-          backgroundColor: '#EAEBED',
-          height: '100%',
-          width: '120px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-          <NoPosterIcon style={{ width: rem(57), height: rem(44) }} />
-        </div>
+        {posterPath ? (
+          <img style={{ width: '120px', height: '100%' }} src={`https://image.tmdb.org/t/p/w500${posterPath}`}
+               alt={'Poster'} />
+        ) : (
+          <div style={{
+            backgroundColor: '#EAEBED',
+            height: '100%',
+            width: '120px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            <NoPosterIcon style={{ width: rem(57), height: rem(44) }} />
+          </div>
+        )}
         <div
           style={{
             marginLeft: 16,
@@ -47,23 +69,29 @@ const MovieCard = ({ originalTitle, voteCount, voteAverage, releaseDate, posterP
             justifyContent: 'space-between',
           }}>
           <Flex direction="column">
-            <span style={{ fontWeight: 600, fontSize: '20px', color: '#9854F6' }}>{originalTitle}</span>
-            <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>{releaseDate}</span>
+            <span style={{ fontWeight: 600, fontSize: '20px', color: '#9854F6', cursor: 'pointer' }}>{originalTitle}</span>
+            <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>{releaseDate.slice(0, 4)}</span>
             <Flex align="center" gap={4}>
               <FilledStarIcon style={{ width: rem(28), height: rem(28) }} />
-              <span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>9.3</span>
-              <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88', marginLeft: '4px' }}>(2.9M)</span>
+              <span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>{voteAverage.toFixed(1)}</span>
+              <span style={{
+                fontWeight: 400,
+                fontSize: '16px',
+                color: '#7B7C88',
+                marginLeft: '4px',
+              }}>{`(${voteCount})`}</span>
             </Flex>
           </Flex>
           <Group>
             <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>Genres</span>
-            <span style={{ fontWeight: 400, fontSize: '16px', color: '#000000' }}>Drama, Crime, Fantasy</span>
+            <span style={{ fontWeight: 400, fontSize: '16px', color: '#000000' }}>{getGenresText(genreIds)}</span>
           </Group>
         </div>
       </Flex>
       <Flex align={'center'} gap={4}>
-        <BlueStarIcon style={{ width: rem(28), height: rem(28) }} />
-        <span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>9</span>
+        <StarIcon style={{ width: rem(28), height: rem(28), cursor: 'pointer' }} />
+        {/*<BlueStarIcon style={{ width: rem(28), height: rem(28) }} />*/}
+        {/*<span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>9</span>*/}
       </Flex>
     </div>
   );
