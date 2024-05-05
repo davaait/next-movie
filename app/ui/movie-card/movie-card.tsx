@@ -3,7 +3,8 @@ import { Flex, Group, rem } from '@mantine/core';
 import { FilledStarIcon } from '../icons/FilledStar';
 import { BlueStarIcon } from '../icons/BlueStar';
 import { StarIcon } from '../icons/Star';
-import { GenreType, MovieCardProps } from '../../lib/definitions';
+import { MovieCardProps } from '../../lib/definitions';
+import { getGenresText } from '../../lib/utils';
 
 const MovieCard = ({
                      genres,
@@ -14,12 +15,6 @@ const MovieCard = ({
                      posterPath,
                      genreIds,
                    }: MovieCardProps) => {
-  const getGenresText = (genresIds: number[]) => {
-    if (genres) {
-      return genres.filter((el: GenreType) => genresIds?.includes(el.id))
-        .map((el: GenreType) => el.name).join(', ');
-    }
-  };
   return (
     <div style={{
       width: '100%',
@@ -74,7 +69,7 @@ const MovieCard = ({
           </Flex>
           <Group>
             <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>Genres</span>
-            <span style={{ fontWeight: 400, fontSize: '16px', color: '#000000' }}>{getGenresText(genreIds)}</span>
+            <span style={{ fontWeight: 400, fontSize: '16px', color: '#000000' }}>{getGenresText(genreIds, genres)}</span>
           </Group>
         </div>
       </Flex>
