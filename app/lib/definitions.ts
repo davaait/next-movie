@@ -23,7 +23,8 @@ export type FiltersComponentProps = {
   setRatingFrom: (val: string | number) => void;
   setRatingTo: (val: string | number) => void;
   setSortBy: (val: string) => void;
-  data: string[];
+  data: Array<{ value: string, label: string }>;
+  resetFiltersHandler: () => void;
 }
 
 export type NativeSelectProps = {
@@ -31,7 +32,7 @@ export type NativeSelectProps = {
   setValue: (val: string) => void;
   label: string;
   placeholder: string;
-  data: Array<string>;
+  data: Array<{ value: string, label: string } | string>;
 }
 
 export type MovieCardProps = {

@@ -13,6 +13,7 @@ const DropdownComponent = ({ value, setValue, label, data, placeholder }: Native
   const icon = <ArrowDownIcon style={{ width: rem(16), height: rem(12) }} />;
   return (
     <Select
+      clearable
       w={284}
       withScrollArea={false}
       renderOption={renderSelectOption}

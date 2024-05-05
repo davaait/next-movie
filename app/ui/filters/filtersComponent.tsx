@@ -2,6 +2,7 @@ import DropdownComponent from '../dropdowns/dropdown';
 import InputNumberComponent from '../inputs/inputNumber';
 import TextButton from '../buttons/textButton';
 import { FiltersComponentProps } from '../../lib/definitions';
+import { sortByValues } from '../../lib/placeholder-data';
 
 const FiltersComponent = ({
                             genreValue,
@@ -15,6 +16,7 @@ const FiltersComponent = ({
                             setRatingTo,
                             setSortBy,
                             data,
+                            resetFiltersHandler,
                           }: FiltersComponentProps) => {
   const years = [];
   for (let year = 1930; year <= 2024; year++) {
@@ -41,7 +43,7 @@ const FiltersComponent = ({
           <InputNumberComponent value={ratingFrom} setValue={setRatingFrom} placeholder={'From'} label={'Ratings'} />
           <InputNumberComponent value={ratingTo} setValue={setRatingTo} placeholder={'To'} label={''} />
         </div>
-        <TextButton />
+        <TextButton resetFiltersHandler={resetFiltersHandler} />
       </div>
       <div style={{
         display: 'flex',
@@ -52,7 +54,7 @@ const FiltersComponent = ({
         marginTop: 24,
         justifyContent: 'flex-end',
       }}>
-        <DropdownComponent placeholder={'Sort by'} value={sortBy} data={['Most popular', 'Less popular']}
+        <DropdownComponent placeholder={'Sort by'} value={sortBy} data={sortByValues}
                            setValue={setSortBy}
                            label="Sort by" />
       </div>
