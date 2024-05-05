@@ -4,32 +4,22 @@ import MovieCard from './ui/movie-card/movie-card';
 import FiltersComponent from './ui/filters/filtersComponent';
 import { useState } from 'react';
 import useSWR from 'swr';
-import { getMovieGenres, getMovies } from './lib/actions';
-
-export type GenreType = {
-  id: number;
-  name: string;
-}
-
-type MovieType = {
-  original_title: string;
-  poster_path: string;
-  release_date: string;
-  vote_average: number;
-  vote_count: number;
-  genre_ids: number[];
-}
+import { GenreType, MovieType } from './lib/definitions';
+import { fetcher } from './lib/utils';
 
 export default function HomePage() {
-  const [filterValue, setFilterValue] = useState('');
-  const { data, error, isLoading } = useSWR('genres', getMovieGenres);
-  const { data: moviesData } = useSWR('movies', getMovies);
-  const genres = data && data.genres.map((el: GenreType) => ({ value: el.id.toString(), label: el.name }));
   const [genreValue, setGenreValue] = useState('');
   const [releaseYear, setReleaseYear] = useState('');
   const [ratingFrom, setRatingFrom] = useState<string | number>('0.0');
-  const [ratingTo, setRatingTo] = useState<string | number>('0.0');
+  const [ratingTo, setRatingTo] = useState<string | number>('10.0');
   const [sortBy, setSortBy] = useState('');
+  const { data } = useSWR('api/genres', fetcher);
+  const genres = data && data.genres.map((el: GenreType) => ({ value: el.id.toString(), label: el.name }));
+  const {
+    data: moviesData,
+    error,
+    isLoading,
+  } = useSWR(`api/movies?with_genres=${genreValue}&primary_release_year=${releaseYear}&vote_average.lte=${ratingTo}&vote_average.gte=${ratingFrom}&sort_by=popularity.desc&page=${1}`, fetcher);
   return (
     <AppShell navbar={{
       width: 280,

@@ -1,20 +1,7 @@
 import DropdownComponent from '../dropdowns/dropdown';
 import InputNumberComponent from '../inputs/inputNumber';
 import TextButton from '../buttons/textButton';
-
-type FiltersComponentProps = {
-  genreValue: string;
-  releaseYear: string;
-  ratingFrom: string | number;
-  ratingTo: string | number;
-  sortBy: string;
-  setGenreValue: (val: string) => void;
-  setReleaseYear: (val: string) => void;
-  setRatingFrom: (val: string | number) => void;
-  setRatingTo: (val: string | number) => void;
-  setSortBy: (val: string) => void;
-  data: string[];
-}
+import { FiltersComponentProps } from '../../lib/definitions';
 
 const FiltersComponent = ({
                             genreValue,

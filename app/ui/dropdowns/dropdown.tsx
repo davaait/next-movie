@@ -1,14 +1,7 @@
 import { rem, Select, SelectProps } from '@mantine/core';
 import { ArrowDownIcon } from '../icons/ArrowDownIcon';
 import styles from '../components.module.css';
-
-interface NativeSelectProps {
-  value: string;
-  setValue: (val: string) => void;
-  label: string;
-  placeholder: string;
-  data: Array<string>;
-}
+import { NativeSelectProps } from '../../lib/definitions';
 
 const renderSelectOption: SelectProps['renderOption'] = ({ option, checked }) => (
   <div className={styles.dropdown}>

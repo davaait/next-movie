@@ -3,17 +3,7 @@ import { Flex, Group, rem } from '@mantine/core';
 import { FilledStarIcon } from '../icons/FilledStar';
 import { BlueStarIcon } from '../icons/BlueStar';
 import { StarIcon } from '../icons/Star';
-import { GenreType } from '../../page';
-
-export type MovieCardProps = {
-  genres: Array<GenreType>;
-  originalTitle: string;
-  posterPath: string;
-  releaseDate: string;
-  voteAverage: number;
-  voteCount: number;
-  genreIds: number[];
-}
+import { GenreType, MovieCardProps } from '../../lib/definitions';
 
 const MovieCard = ({
                      genres,
@@ -26,7 +16,7 @@ const MovieCard = ({
                    }: MovieCardProps) => {
   const getGenresText = (genresIds: number[]) => {
     if (genres) {
-      return genres.filter((el: GenreType) => genresIds.includes(el.id))
+      return genres.filter((el: GenreType) => genresIds?.includes(el.id))
         .map((el: GenreType) => el.name).join(', ');
     }
   };
@@ -70,10 +60,10 @@ const MovieCard = ({
           }}>
           <Flex direction="column">
             <span style={{ fontWeight: 600, fontSize: '20px', color: '#9854F6', cursor: 'pointer' }}>{originalTitle}</span>
-            <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>{releaseDate.slice(0, 4)}</span>
+            <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>{releaseDate?.slice(0, 4)}</span>
             <Flex align="center" gap={4}>
               <FilledStarIcon style={{ width: rem(28), height: rem(28) }} />
-              <span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>{voteAverage.toFixed(1)}</span>
+              <span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>{voteAverage?.toFixed(1)}</span>
               <span style={{
                 fontWeight: 400,
                 fontSize: '16px',
