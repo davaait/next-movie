@@ -17,11 +17,11 @@ export default function HomePage() {
   const [ratingTo, setRatingTo] = useState<string | number>('10.0');
   const [sortBy, setSortBy] = useState('');
   const resetFiltersHandler = () => {
-    setGenreValue('');
-    setReleaseYear('');
-    setRatingFrom('0.0');
-    setRatingTo('10.0');
-    setSortBy('');
+    // setGenreValue('');
+    // setReleaseYear('');
+    // setRatingFrom('0.0');
+    // setRatingTo('10.0');
+    // setSortBy('');
     window.location.reload();
   };
   useEffect(() => {
