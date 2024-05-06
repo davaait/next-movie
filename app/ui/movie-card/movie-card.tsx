@@ -1,12 +1,15 @@
 import { NoPosterIcon } from '../icons/NoPosterIcon';
-import { Flex, Group, rem } from '@mantine/core';
+import { Button, Divider, Flex, Group, Modal, Rating, rem } from '@mantine/core';
 import { FilledStarIcon } from '../icons/FilledStar';
-import { BlueStarIcon } from '../icons/BlueStar';
 import { StarIcon } from '../icons/Star';
+import { BlueStarIcon } from '../icons/BlueStar';
 import { MovieCardProps } from '../../lib/definitions';
 import { getGenresText } from '../../lib/utils';
+import { useDisclosure } from '@mantine/hooks';
+import { useEffect, useState } from 'react';
 
 const MovieCard = ({
+                     id,
                      genres,
                      originalTitle,
                      voteCount,
@@ -15,6 +18,22 @@ const MovieCard = ({
                      posterPath,
                      genreIds,
                    }: MovieCardProps) => {
+  const [opened, { open, close }] = useDisclosure(false);
+  const [value, setValue] = useState(0);
+  const valueFromLS = localStorage.getItem(`movie/${id}`);
+  useEffect(() => {
+    if (!!valueFromLS) {
+      setValue(Number(localStorage.getItem(`movie/${id}`)));
+    }
+  }, []);
+  const saveRatingToLS = () => {
+    localStorage.setItem(`movie/${id}`, value.toString());
+    close();
+  };
+  const removeRatingFromLS = () => {
+    localStorage.removeItem(`movie/${id}`);
+    close();
+  };
   return (
     <div style={{
       width: '100%',
@@ -54,7 +73,8 @@ const MovieCard = ({
             justifyContent: 'space-between',
           }}>
           <Flex direction="column">
-            <span style={{ fontWeight: 600, fontSize: '20px', color: '#9854F6', cursor: 'pointer' }}>{originalTitle}</span>
+            <span
+              style={{ fontWeight: 600, fontSize: '20px', color: '#9854F6', cursor: 'pointer' }}>{originalTitle}</span>
             <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>{releaseDate?.slice(0, 4)}</span>
             <Flex align="center" gap={4}>
               <FilledStarIcon style={{ width: rem(28), height: rem(28) }} />
@@ -69,15 +89,36 @@ const MovieCard = ({
           </Flex>
           <Group>
             <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>Genres</span>
-            <span style={{ fontWeight: 400, fontSize: '16px', color: '#000000' }}>{getGenresText(genreIds, genres)}</span>
+            <span
+              style={{ fontWeight: 400, fontSize: '16px', color: '#000000' }}>{getGenresText(genreIds, genres)}</span>
           </Group>
         </div>
       </Flex>
       <Flex align={'center'} gap={4}>
-        <StarIcon style={{ width: rem(28), height: rem(28), cursor: 'pointer' }} />
-        {/*<BlueStarIcon style={{ width: rem(28), height: rem(28) }} />*/}
-        {/*<span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>9</span>*/}
+        <div onClick={open}>
+          {!!valueFromLS ? (
+            <Flex align={'center'} gap={6}>
+              <BlueStarIcon style={{ width: rem(28), height: rem(28) }} />
+              <span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>{valueFromLS}</span>
+            </Flex>
+          ) : (
+            <StarIcon style={{ width: rem(28), height: rem(28), cursor: 'pointer' }} />
+          )}
+        </div>
       </Flex>
+      <Modal size="auto" radius={'md'} opened={opened} onClose={close} centered title={'Your rating'}>
+        <div style={{ width: 380, height: '100%' }}>
+          <Divider size="xs" />
+          <p style={{ fontWeight: 700 }}>{originalTitle}</p>
+          <Rating w={'100%'} count={10} value={value} onChange={setValue}
+                  emptySymbol={<StarIcon style={{ width: rem(28), height: rem(28), marginRight: 10 }} />}
+                  fullSymbol={<FilledStarIcon style={{ width: rem(28), height: rem(28), marginRight: 10 }} />} />
+          <Group mt={16}>
+            <Button onClick={saveRatingToLS} variant="filled" color="#9854F6" radius="md">Save</Button>
+            <Button onClick={removeRatingFromLS} variant="subtle" radius="md">Remove rating</Button>
+          </Group>
+        </div>
+      </Modal>
     </div>
   );
 };

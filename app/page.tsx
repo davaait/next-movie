@@ -1,4 +1,5 @@
 'use client';
+
 import { AppShell, Flex, Loader, Pagination, SimpleGrid, Text } from '@mantine/core';
 import MovieCard from './ui/movie-card/movie-card';
 import FiltersComponent from './ui/filters/filtersComponent';
@@ -17,11 +18,6 @@ export default function HomePage() {
   const [ratingTo, setRatingTo] = useState<string | number>('10.0');
   const [sortBy, setSortBy] = useState('');
   const resetFiltersHandler = () => {
-    // setGenreValue('');
-    // setReleaseYear('');
-    // setRatingFrom('0.0');
-    // setRatingTo('10.0');
-    // setSortBy('');
     window.location.reload();
   };
   useEffect(() => {
@@ -51,7 +47,7 @@ export default function HomePage() {
           {moviesData ? (
             <SimpleGrid cols={{ base: 2, sm: 2 }} spacing="md" mt={24}>
               {moviesData?.results?.map((el: MovieType, index: number) => (
-                <MovieCard key={index} genres={data.genres} originalTitle={el.original_title} voteCount={el.vote_count}
+                <MovieCard id={el.id} key={index} genres={data.genres} originalTitle={el.original_title} voteCount={el.vote_count}
                            voteAverage={el.vote_average}
                            releaseDate={el.release_date} posterPath={el.poster_path} genreIds={el.genre_ids} />
               ))}
@@ -66,7 +62,7 @@ export default function HomePage() {
             </Flex>
           )}
           <Flex bg={'#F5F5F6'} justify={'flex-end'} align={'center'}>
-            <Pagination color="#9854F6" siblings={0} value={activePage} onChange={setPage} total={moviesData?.total_pages} mt={24} mb={24} />
+            <Pagination boundaries={0} color="#9854F6" siblings={1} value={activePage} onChange={setPage} total={moviesData?.total_pages} mt={24} mb={24} />
           </Flex>
         </div>
       </AppShell.Main>

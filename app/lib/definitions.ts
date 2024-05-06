@@ -4,6 +4,7 @@ export type GenreType = {
 }
 
 export type MovieType = {
+  id: number;
   original_title: string;
   poster_path: string;
   release_date: string;
@@ -36,6 +37,7 @@ export type NativeSelectProps = {
 }
 
 export type MovieCardProps = {
+  id: number;
   genres: Array<GenreType>;
   originalTitle: string;
   posterPath: string;

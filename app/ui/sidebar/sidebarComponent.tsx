@@ -4,13 +4,11 @@ import { AppShell, Text } from '@mantine/core';
 import Image from 'next/image';
 import MainLogoComponent from '../../../public/images/logo.svg';
 import ButtonComponent from '../buttons/linkComponent';
+import { ReactElement, ReactNode } from 'react';
 
 const SidebarComponent = () => {
   return (
-    <AppShell navbar={{
-      width: 280,
-      breakpoint: 'sm',
-    }}>
+    <AppShell>
       <AppShell.Navbar style={{ backgroundColor: '#F2EBF9', padding: '24px' }} p="md">
         <div style={{
           display: 'flex',
