@@ -1,8 +1,10 @@
 import '@mantine/core/styles.css';
-import React from 'react';
 import { MantineProvider, ColorSchemeScript } from '@mantine/core';
 import { theme } from '../theme';
 import SidebarComponent from './ui/sidebar/sidebarComponent';
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
   title: 'Next.js Movies',
@@ -20,7 +22,7 @@ export default function RootLayout({ children }: { children: any }) {
         content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
       />
     </head>
-    <body>
+    <body className={inter.className}>
     <MantineProvider theme={theme}>
       <SidebarComponent />
       {children}

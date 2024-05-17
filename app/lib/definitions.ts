@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image';
+
 export type GenreType = {
   id: number;
   name: string;
@@ -36,7 +38,7 @@ export type NativeSelectProps = {
   data: Array<{ value: string, label: string } | string>;
 }
 
-export type MovieCardProps = {
+export interface MovieCardProps {
   id: number;
   genres: Array<GenreType>;
   originalTitle: string;
@@ -45,6 +47,52 @@ export type MovieCardProps = {
   voteAverage: number;
   voteCount: number;
   genreIds: number[];
+}
+
+export interface MovieI extends MovieCardProps {
+  rating: number;
+}
+
+export type CurrentMoviePropsType = {
+  params: {
+    id: string
+  }
+}
+
+export type ProductionCompaniesType = { id: number, logo_path: string, name: string, origin_country: string }
+
+export type TrailerType = {
+  id: string,
+  iso_639_1: string,
+  iso_3166_1: string,
+  key: string,
+  name: string,
+  official: boolean,
+  published_at: string,
+  site: string,
+  size: number,
+  type: string,
+}
+
+export type Details = {
+  original_title: string,
+  poster_path: string,
+  release_date: string,
+  vote_average: number,
+  vote_count: number,
+  runtime: number,
+  budget: number,
+  revenue: number,
+  genres: Array<GenreType>,
+  overview: string,
+  production_companies: Array<ProductionCompaniesType>,
+  videos?: { results: TrailerType[] },
+}
+
+export type EmptyStatePropsType = {
+  phrase: string;
+  isRatedPage: boolean;
+  image: StaticImageData;
 }
 
 export enum SortBy {

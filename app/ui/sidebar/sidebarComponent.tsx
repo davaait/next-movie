@@ -5,6 +5,7 @@ import Image from 'next/image';
 import MainLogoComponent from '../../../public/images/logo.svg';
 import ButtonComponent from '../buttons/linkComponent';
 import { ReactElement, ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
 
 const SidebarComponent = () => {
   return (

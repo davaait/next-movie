@@ -1,16 +1,17 @@
 'use client';
 
-import { AppShell, Flex, Loader, Pagination, SimpleGrid, Text } from '@mantine/core';
+import { AppShell, Flex, Pagination, SimpleGrid } from '@mantine/core';
 import MovieCard from './ui/movie-card/movie-card';
 import FiltersComponent from './ui/filters/filtersComponent';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { GenreType, MovieType } from './lib/definitions';
 import { fetcher } from './lib/utils';
-import { useRouter } from 'next/navigation';
+import img from '../public/images/pic_1.png';
+import EmptyState from './ui/empty-state/empty-state';
+import Loading from './[id]/loading';
 
 export default function HomePage() {
-  const router = useRouter();
   const [activePage, setPage] = useState(1);
   const [genreValue, setGenreValue] = useState('');
   const [releaseYear, setReleaseYear] = useState('');
@@ -27,10 +28,8 @@ export default function HomePage() {
   const genres = data && data.genres.map((el: GenreType) => ({ value: el.id.toString(), label: el.name }));
   const {
     data: moviesData,
-    error,
     isLoading,
   } = useSWR(`api/movies?with_genres=${genreValue}&primary_release_year=${releaseYear}&vote_average.lte=${ratingTo}&vote_average.gte=${ratingFrom}&sort_by=${sortBy}&page=${activePage}`, fetcher);
-  console.log(moviesData);
   return (
     <AppShell navbar={{
       width: 280,
@@ -38,32 +37,30 @@ export default function HomePage() {
     }}>
       <AppShell.Main>
         <div style={{ width: '100%', minHeight: '100vh', padding: '40px 80px 0 80px', backgroundColor: '#F5F5F6' }}>
-          <Text style={{ fontWeight: 700, fontFamily: 'Inter', fontSize: '32px' }}>Movies</Text>
+          <span style={{ fontWeight: 700, fontSize: 32 }}>Movies</span>
           <FiltersComponent resetFiltersHandler={resetFiltersHandler} data={genres} genreValue={genreValue}
                             setGenreValue={setGenreValue} ratingFrom={ratingFrom}
                             ratingTo={ratingTo} setRatingFrom={setRatingFrom} setRatingTo={setRatingTo}
                             releaseYear={releaseYear} setReleaseYear={setReleaseYear} setSortBy={setSortBy}
                             sortBy={sortBy} />
-          {moviesData ? (
-            <SimpleGrid cols={{ base: 2, sm: 2 }} spacing="md" mt={24}>
-              {moviesData?.results?.map((el: MovieType, index: number) => (
-                <MovieCard id={el.id} key={index} genres={data.genres} originalTitle={el.original_title} voteCount={el.vote_count}
-                           voteAverage={el.vote_average}
-                           releaseDate={el.release_date} posterPath={el.poster_path} genreIds={el.genre_ids} />
-              ))}
-            </SimpleGrid>
-          ) : (
-            <Flex style={{
-              position: 'fixed',
-              top: '50%',
-              left: '55%',
-            }}>
-              <Loader color="#9854F6" />
-            </Flex>
+          {moviesData?.results?.length ? (
+            <>
+              <SimpleGrid cols={{ base: 2, sm: 2 }} spacing="md" mt={24}>
+                {moviesData?.results?.map((el: MovieType, index: number) => (
+                  <MovieCard id={el.id} key={index} genres={data.genres} originalTitle={el.original_title}
+                             voteCount={el.vote_count}
+                             voteAverage={el.vote_average}
+                             releaseDate={el.release_date} posterPath={el.poster_path} genreIds={el.genre_ids} />
+                ))}
+              </SimpleGrid>
+              <Flex bg={'#F5F5F6'} justify={'flex-end'} align={'center'}>
+                <Pagination boundaries={0} color="#9854F6" siblings={1} value={activePage} onChange={setPage}
+                            total={moviesData?.total_pages} mt={24} mb={24} />
+              </Flex>
+            </>
+          ) : isLoading ? <Loading /> : (
+            <EmptyState image={img} isRatedPage={false} phrase={`We don't have such movies, look for another one`} />
           )}
-          <Flex bg={'#F5F5F6'} justify={'flex-end'} align={'center'}>
-            <Pagination boundaries={0} color="#9854F6" siblings={1} value={activePage} onChange={setPage} total={moviesData?.total_pages} mt={24} mb={24} />
-          </Flex>
         </div>
       </AppShell.Main>
     </AppShell>

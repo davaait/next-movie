@@ -3,10 +3,11 @@ import { Button, Divider, Flex, Group, Modal, Rating, rem } from '@mantine/core'
 import { FilledStarIcon } from '../icons/FilledStar';
 import { StarIcon } from '../icons/Star';
 import { BlueStarIcon } from '../icons/BlueStar';
-import { MovieCardProps } from '../../lib/definitions';
+import { MovieCardProps, MovieI } from '../../lib/definitions';
 import { getGenresText } from '../../lib/utils';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 const MovieCard = ({
                      id,
@@ -22,17 +23,25 @@ const MovieCard = ({
   const [value, setValue] = useState(0);
   const valueFromLS = localStorage.getItem(`movie/${id}`);
   useEffect(() => {
-    if (!!valueFromLS) {
-      setValue(Number(localStorage.getItem(`movie/${id}`)));
+    if (valueFromLS) {
+      const obj = JSON.parse(valueFromLS) as MovieI;
+      setValue(obj.rating);
     }
-  }, []);
+  }, [valueFromLS]);
   const saveRatingToLS = () => {
-    localStorage.setItem(`movie/${id}`, value.toString());
+    localStorage.setItem(`movie/${id}`, JSON.stringify({
+      id, genres, originalTitle, voteCount,
+      voteAverage,
+      releaseDate,
+      posterPath,
+      genreIds,
+      rating: value,
+    }));
     close();
   };
   const removeRatingFromLS = () => {
     localStorage.removeItem(`movie/${id}`);
-    close();
+    window.location.reload();
   };
   return (
     <div style={{
@@ -73,8 +82,14 @@ const MovieCard = ({
             justifyContent: 'space-between',
           }}>
           <Flex direction="column">
-            <span
-              style={{ fontWeight: 600, fontSize: '20px', color: '#9854F6', cursor: 'pointer' }}>{originalTitle}</span>
+            <Link href={`/${id}`}
+                  style={{
+                    textDecoration: 'none',
+                    fontWeight: 600,
+                    fontSize: '20px',
+                    color: '#9854F6',
+                    cursor: 'pointer',
+                  }}>{originalTitle}</Link>
             <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>{releaseDate?.slice(0, 4)}</span>
             <Flex align="center" gap={4}>
               <FilledStarIcon style={{ width: rem(28), height: rem(28) }} />
@@ -98,8 +113,8 @@ const MovieCard = ({
         <div onClick={open}>
           {!!valueFromLS ? (
             <Flex align={'center'} gap={6}>
-              <BlueStarIcon style={{ width: rem(28), height: rem(28) }} />
-              <span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>{valueFromLS}</span>
+              <BlueStarIcon style={{ width: rem(28), height: rem(28), cursor: 'pointer' }} />
+              <span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>{value}</span>
             </Flex>
           ) : (
             <StarIcon style={{ width: rem(28), height: rem(28), cursor: 'pointer' }} />
