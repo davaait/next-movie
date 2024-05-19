@@ -4,7 +4,7 @@ import { FilledStarIcon } from '../icons/FilledStar';
 import { StarIcon } from '../icons/Star';
 import { BlueStarIcon } from '../icons/BlueStar';
 import { MovieCardProps, MovieI } from '../../lib/definitions';
-import { getGenresText } from '../../lib/utils';
+import { formatNumber, getGenresText } from '../../lib/utils';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -103,7 +103,7 @@ const MovieCard = ({
                 fontSize: '16px',
                 color: '#7B7C88',
                 marginLeft: '4px',
-              }}>{`(${voteCount})`}</span>
+              }}>{`(${formatNumber(voteCount)})`}</span>
             </Flex>
           </Flex>
           <Group>

@@ -11,6 +11,7 @@ import BreadcrumbsLink from '../ui/buttons/breadcrumbsLink';
 import LayoutComponent from '../ui/layout/layout-component';
 import Image from 'next/image';
 import NotFound from '../not-found';
+import Loading from './loading';
 
 const getBreadcrumbs = (id: string, movieName: string) => {
   return [
@@ -24,8 +25,11 @@ const getBreadcrumbs = (id: string, movieName: string) => {
 const baseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL;
 
 const Page = ({ params: { id } }: CurrentMoviePropsType) => {
-  const { data } = useSWR<Details>(`api/movies/${id}`, fetcher);
-  if (!data || !data.original_title) {
+  const { data, error } = useSWR<Details>(`api/movies/${id}`, fetcher);
+  if (!data && !error) {
+    return <Loading />;
+  }
+  if (error || !data || !data.original_title) {
     return <NotFound />;
   }
   const movieGenres = data?.original_title && data.genres.map(el => el.name).join();
