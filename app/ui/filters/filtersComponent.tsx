@@ -28,7 +28,7 @@ const FiltersComponent = ({
         display: 'flex',
         flexDirection: 'row',
         width: '100%',
-        gap: '16px',
+        // gap: 16,
         alignItems: 'flex-end',
         marginTop: 42,
         justifyContent: 'space-between',
@@ -59,8 +59,7 @@ const FiltersComponent = ({
                            label="Sort by" />
       </div>
     </>
-  )
-    ;
+  );
 };
 
 export default FiltersComponent;

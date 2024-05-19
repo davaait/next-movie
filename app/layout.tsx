@@ -24,7 +24,6 @@ export default function RootLayout({ children }: { children: any }) {
     </head>
     <body className={inter.className}>
     <MantineProvider theme={theme}>
-      <SidebarComponent />
       {children}
     </MantineProvider>
     </body>

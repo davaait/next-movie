@@ -8,6 +8,9 @@ import { getGenresText } from '../../lib/utils';
 import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+
+const baseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL;
 
 const MovieCard = ({
                      id,
@@ -58,8 +61,9 @@ const MovieCard = ({
     }}>
       <Flex justify={'flex-start'} h={'100%'}>
         {posterPath ? (
-          <img style={{ width: '120px', height: '100%' }} src={`https://image.tmdb.org/t/p/w500${posterPath}`}
-               alt={'Poster'} />
+          <Image width={119} height={170} style={{ width: 'auto', height: 'auto', display: 'block' }}
+                 src={`${baseUrl}w500${posterPath}`}
+                 alt={'Poster'} />
         ) : (
           <div style={{
             backgroundColor: '#EAEBED',
