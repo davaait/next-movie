@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import style from '../components.module.css';
 
 interface ButtonComponentProps {
   name: string;
@@ -17,7 +16,6 @@ const buttonColor = {
 
 const ButtonComponent = ({ name, href }: ButtonComponentProps) => {
   const pathname = usePathname();
-  const linkClassname = pathname === href ? style.linkActive : style.link;
   return (
     <Link
       href={href}

@@ -51,9 +51,11 @@ const MovieCard = ({
     <div className={styles.movieCard}>
       <Flex justify={'flex-start'} h={'100%'}>
         {posterPath ? (
-          <Image width={119} height={170} style={{ width: 'auto', height: 'auto', display: 'block' }}
+          <Image width={119} height={170}
                  src={`${baseUrl}w500${posterPath}`}
-                 alt={'Poster'} />
+                 alt={'Poster'}
+                 style={{ width: 'auto', height: 'auto' }}
+          />
         ) : (
           <div className={styles.movieCardPoster}>
             <NoPosterIcon style={{ width: rem(57), height: rem(44) }} />

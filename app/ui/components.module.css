@@ -46,6 +46,7 @@
 }
 
 .sidebarComponentNavbar {
+    min-height: 100vh;
     background-color: #F2EBF9;
     padding: 24px;
 }
@@ -101,9 +102,11 @@
 @media (max-width: 768px) {
     .sidebarComponentNavbar {
         padding: 16px;
+        display: flex;
     }
     .sidebarComponentLogoContainer {
         margin-bottom: 40px;
+        justify-content: space-between;
     }
     .sidebarComponentLogoText {
         font-size: 20px;
@@ -127,9 +130,9 @@
         padding: 12px;
     }
     .sidebarComponentLogoContainer {
-        flex-direction: column;
-        gap: 8px;
-        margin-bottom: 20px;
+        /*flex-direction: column;*/
+        /*gap: 8px;*/
+        /*margin-bottom: 20px;*/
     }
     .sidebarComponentLogoText {
         font-size: 18px;

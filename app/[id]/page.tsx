@@ -13,6 +13,7 @@ import Image from 'next/image';
 import NotFound from '../not-found';
 import Loading from './loading';
 import styles from './page.module.css';
+import { useMediaQuery } from '@mantine/hooks';
 
 const getBreadcrumbs = (id: string, movieName: string) => {
   return [
@@ -26,6 +27,7 @@ const getBreadcrumbs = (id: string, movieName: string) => {
 const baseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL;
 
 const Page = ({ params: { id } }: CurrentMoviePropsType) => {
+  const isMobile = useMediaQuery('(max-width: 960px');
   const { data, error } = useSWR<Details>(`api/movies/${id}`, fetcher);
   if (!data && !error) {
     return <Loading />;
@@ -41,7 +43,7 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
         {data && (
           <div className={styles.content}>
             <Breadcrumbs separator="/">{getBreadcrumbs(id, data.original_title)}</Breadcrumbs>
-            <Flex className={styles.noImagePoster}>
+            <Flex className={styles.imagePoster}>
               {data.poster_path ? (
                 <Image
                   width={250}
@@ -65,35 +67,61 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
                     <span className={styles.voteCount}>{`(${data.vote_count})`}</span>
                   </Flex>
                 </Flex>
-                <SimpleGrid verticalSpacing={13} className={styles.detailsGrid} cols={{ base: 2, sm: 2 }} mt={24}>
-                  <Flex direction={'column'}>
-                    {['Duration', 'Premiere', 'Budget', 'Gross worldwide', 'Genres'].map((el, index) => (
-                      <span key={index} className={styles.detailLabel}>{el}</span>
-                    ))}
-                  </Flex>
-                  <Flex direction={'column'}>
+                {isMobile ? (
+                  <Flex direction={'column'} className={styles.detailsGrid}>
+                    <span className={styles.detailLabel}>Duration</span>
                     <span className={styles.detailValue}>{`${minutesToHoursMinutes(data.runtime)}`}</span>
+                    <span className={styles.detailLabel}>Premiere</span>
                     <time dateTime={data.release_date}>{format(date!, 'LLLL d, yyyy')}</time>
+                    <span className={styles.detailLabel}>Budget</span>
                     <span className={styles.detailValue}>{`$${data.budget}`}</span>
+                    <span className={styles.detailLabel}>Gross worldwide</span>
                     <span className={styles.detailValue}>{`$${data.revenue}`}</span>
+                    <span className={styles.detailLabel}>Genres</span>
                     <Tooltip label={movieGenres}>
                       <span className={styles.detailValue}>{`${movieGenres}`}</span>
                     </Tooltip>
                   </Flex>
-                </SimpleGrid>
+                ) : (
+                  <SimpleGrid verticalSpacing={13} className={styles.detailsGrid} cols={{ base: 2, sm: 2 }} mt={24}>
+                    <Flex direction={'column'}>
+                      {['Duration', 'Premiere', 'Budget', 'Gross worldwide', 'Genres'].map((el, index) => (
+                        <span key={index} className={styles.detailLabel}>{el}</span>
+                      ))}
+                    </Flex>
+                    <Flex className={styles.detailsColumn} direction={'column'}>
+                      <span className={styles.detailValue}>{`${minutesToHoursMinutes(data.runtime)}`}</span>
+                      <time dateTime={data.release_date}>{format(date!, 'LLLL d, yyyy')}</time>
+                      <span className={styles.detailValue}>{`$${data.budget}`}</span>
+                      <span className={styles.detailValue}>{`$${data.revenue}`}</span>
+                      <Tooltip label={movieGenres}>
+                        <span className={styles.detailValue}>{`${movieGenres}`}</span>
+                      </Tooltip>
+                    </Flex>
+                  </SimpleGrid>
+                )}
               </Flex>
             </Flex>
             <Flex direction={'column'} className={styles.trailerContainer}>
               <span className={styles.sectionTitle}>Trailer</span>
-              <iframe
-                width="500"
-                height="281"
-                src={`https://www.youtube.com/embed/${data?.videos?.results[0]?.key}`}
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerPolicy="strict-origin-when-cross-origin"
-                allowFullScreen
-              />
+              <div style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '500px',
+                // paddingBottom: '56.25%',
+                height: 281,
+                overflow: 'hidden',
+                borderRadius: '9px',
+              }}>
+                <iframe
+                  style={{ position: 'absolute', width: '100%', height: 281, top: 0, left: 0, border: 0 }}
+                  src={`https://www.youtube.com/embed/${data?.videos?.results[0]?.key}`}
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
               <Divider mt={20} mb={20} />
               <span className={styles.sectionTitle}>Description</span>
               <span className={styles.description}>{data.overview}</span>
