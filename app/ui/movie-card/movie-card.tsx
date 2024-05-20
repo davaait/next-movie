@@ -1,5 +1,5 @@
 import { NoPosterIcon } from '../icons/NoPosterIcon';
-import { Button, Divider, Flex, Group, Modal, Rating, rem } from '@mantine/core';
+import { Button, Divider, Flex, Group, Modal, Rating, rem, Tooltip } from '@mantine/core';
 import { FilledStarIcon } from '../icons/FilledStar';
 import { StarIcon } from '../icons/Star';
 import { BlueStarIcon } from '../icons/BlueStar';
@@ -63,9 +63,11 @@ const MovieCard = ({
         )}
         <div className={styles.movieCardDetails}>
           <Flex direction="column">
-            <Link href={`/${id}`} className={styles.movieCardLink}>
-              {originalTitle}
-            </Link>
+            <Tooltip label={originalTitle}>
+              <Link href={`/${id}`} className={styles.movieCardLink}>
+                {originalTitle}
+              </Link>
+            </Tooltip>
             <span className={styles.movieCardReleaseDate}>{releaseDate?.slice(0, 4)}</span>
             <Flex align="center" gap={4}>
               <FilledStarIcon style={{ width: rem(28), height: rem(28) }} />
@@ -73,10 +75,12 @@ const MovieCard = ({
               <span className={styles.movieCardRatingCount}>{`(${formatNumber(voteCount)})`}</span>
             </Flex>
           </Flex>
-          <Group>
+          <Flex style={{ maxWidth: 250, width: '100%', gap: 8 }}>
             <span className={styles.movieCardGenres}>Genres</span>
-            <span className={styles.movieCardGenresText}>{getGenresText(genreIds, genres)}</span>
-          </Group>
+            <Tooltip label={getGenresText(genreIds, genres)}>
+              <span className={styles.movieCardGenresText}>{getGenresText(genreIds, genres)}</span>
+            </Tooltip>
+          </Flex>
         </div>
       </Flex>
       <Flex align={'center'} gap={4}>

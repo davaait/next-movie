@@ -11,6 +11,7 @@ import img from '../public/images/pic_1.png';
 import EmptyState from './ui/empty-state/empty-state';
 import Loading from './[id]/loading';
 import LayoutComponent from './ui/layout/layout-component';
+import styles from './ui/components.module.css';
 
 export default function HomePage() {
   const [activePage, setPage] = useState(1);
@@ -26,14 +27,14 @@ export default function HomePage() {
     setPage(1);
   }, [genreValue, genreValue, releaseYear, ratingFrom, ratingTo, sortBy]);
   const { data } = useSWR('api/genres', fetcher);
-  const genres = data && data.genres?.map((el: GenreType) => ({ value: el.id.toString(), label: el.name }));
+  const genres = data && data.genres.map((el: GenreType) => ({ value: el.id.toString(), label: el.name }));
   const {
     data: moviesData,
     isLoading,
   } = useSWR(`api/movies?with_genres=${genreValue}&primary_release_year=${releaseYear}&vote_average.lte=${ratingTo}&vote_average.gte=${ratingFrom}&sort_by=${sortBy}&page=${activePage}`, fetcher);
   return (
     <LayoutComponent>
-      <div style={{ width: '100%', minHeight: '100vh', padding: '40px 80px 0 80px', backgroundColor: '#F5F5F6' }}>
+      <div className={styles.mainPageContainer}>
         <span style={{ fontWeight: 700, fontSize: 32 }}>Movies</span>
         <FiltersComponent resetFiltersHandler={resetFiltersHandler} data={genres} genreValue={genreValue}
                           setGenreValue={setGenreValue} ratingFrom={ratingFrom}
@@ -42,7 +43,7 @@ export default function HomePage() {
                           sortBy={sortBy} />
         {moviesData?.results?.length ? (
           <>
-            <SimpleGrid cols={{ base: 2, sm: 2 }} spacing="md" mt={24}>
+            <SimpleGrid cols={{ xs: 1, sm: 1, lg: 2, xl: 2 }} spacing="md" mt={24}>
               {moviesData?.results?.map((el: MovieType, index: number) => (
                 <MovieCard id={el.id} key={index} genres={data.genres} originalTitle={el.original_title}
                            voteCount={el.vote_count}

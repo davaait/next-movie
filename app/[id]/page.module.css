@@ -38,6 +38,10 @@
     display: block;
 }
 
+.titleContainer {
+    margin-top: 0;
+}
+
 .movieTitle {
     font-weight: 600;
     font-size: 20px;
@@ -179,8 +183,13 @@
         padding: 0 16px;
     }
 
+    .titleContainer {
+        margin-top: 10px;
+    }
+
     .imagePoster {
         flex-direction: column;
+        align-items: center;
     }
 
     .detailsGrid {
