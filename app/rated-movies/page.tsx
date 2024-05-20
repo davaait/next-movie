@@ -10,6 +10,7 @@ import useSWR from 'swr';
 import { fetcher } from '../lib/utils';
 import Loading from '../[id]/loading';
 import LayoutComponent from '../ui/layout/layout-component';
+import styles from './ratedMovies.module.css';
 
 const pageSize = 4;
 
@@ -56,20 +57,17 @@ const Page = () => {
   }, []);
   return (
     <LayoutComponent>
-      <div style={{
-        width: '100%',
-        height: '100vh',
-        padding: '40px 80px 0 80px',
-        backgroundColor: '#F5F5F6',
-      }}>
-        {isLoading ? <Loading /> : ratedMovies.length === 0 ? (
+      <div className={styles.container}>
+        {isLoading ? (
+          <Loading />
+        ) : ratedMovies.length === 0 ? (
           <EmptyState image={img} isRatedPage={true} phrase={`You haven't rated any films yet`} />
         ) : (
           <>
-            <Flex justify={'space-between'} align={'center'} w={'100%'} mb={40}>
-              <span style={{ fontWeight: 700, fontSize: 32 }}>Rated movies</span>
+            <Flex className={styles.header}>
+              <span className={styles.headerTitle}>Rated movies</span>
               <Input
-                style={{ width: 490, height: 48, display: 'flex', alignItems: 'center' }}
+                className={styles.searchInput}
                 placeholder="Search movie title"
                 value={value}
                 onChange={(event) => setValue(event.currentTarget.value)}
@@ -79,29 +77,45 @@ const Page = () => {
                 rightSectionWidth={104}
                 mt="md"
                 size="md"
-                rightSection={<Button onClick={handleSearch} style={{ width: 88, height: 32 }} variant="filled"
-                                      radius="md">Search</Button>}
+                rightSection={
+                  <Button onClick={handleSearch} className={styles.searchButton} variant="filled" radius="md">
+                    Search
+                  </Button>
+                }
               />
             </Flex>
-            <SimpleGrid cols={{ base: 2, sm: 2 }} spacing="md" mt={24}>
-              {currentMovies.map((el: MovieI, index: number) => (
-                <MovieCard id={el.id} key={index} genres={data?.genres} originalTitle={el.originalTitle}
-                           voteCount={el.voteCount}
-                           voteAverage={el.voteAverage}
-                           releaseDate={el.releaseDate} posterPath={el.posterPath} genreIds={el.genreIds} />
+            <SimpleGrid cols={{ base: 2, sm: 2 }} spacing="md" className={styles.grid}>
+              {currentMovies.map((el, index) => (
+                <MovieCard
+                  id={el.id}
+                  key={index}
+                  genres={data?.genres}
+                  originalTitle={el.originalTitle}
+                  voteCount={el.voteCount}
+                  voteAverage={el.voteAverage}
+                  releaseDate={el.releaseDate}
+                  posterPath={el.posterPath}
+                  genreIds={el.genreIds}
+                />
               ))}
             </SimpleGrid>
-            <Flex bg={'#F5F5F6'} justify={'center'} align={'center'}>
-              <Pagination boundaries={0} color="#9854F6" siblings={1} value={activePage}
-                          onChange={changeCurrentMovies}
-                          total={totalPages} mt={24} mb={24} />
+            <Flex className={styles.pagination}>
+              <Pagination
+                boundaries={0}
+                color="#9854F6"
+                siblings={1}
+                value={activePage}
+                onChange={changeCurrentMovies}
+                total={totalPages}
+                mt={24}
+                mb={24}
+              />
             </Flex>
           </>
         )}
       </div>
     </LayoutComponent>
-  )
-    ;
+  );
 };
 
 export default Page;

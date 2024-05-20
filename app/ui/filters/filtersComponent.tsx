@@ -3,6 +3,7 @@ import InputNumberComponent from '../inputs/inputNumber';
 import TextButton from '../buttons/textButton';
 import { FiltersComponentProps } from '../../lib/definitions';
 import { sortByValues } from '../../lib/placeholder-data';
+import styles from '../components.module.css';
 
 const FiltersComponent = ({
                             genreValue,
@@ -24,37 +25,20 @@ const FiltersComponent = ({
   }
   return (
     <>
-      <div style={{
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        // gap: 16,
-        alignItems: 'flex-end',
-        marginTop: 42,
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-      }}>
-        <DropdownComponent placeholder={'Select genre'} value={genreValue} data={data}
+      <div className={styles.filtersContainer}>
+        <DropdownComponent placeholder="Select genre" value={genreValue} data={data}
                            setValue={setGenreValue}
                            label="Genres" />
-        <DropdownComponent placeholder={'Select release year'} value={releaseYear} data={years}
+        <DropdownComponent placeholder="Select release year" value={releaseYear} data={years}
                            setValue={setReleaseYear} label="Release year" />
-        <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>
-          <InputNumberComponent value={ratingFrom} setValue={setRatingFrom} placeholder={'From'} label={'Ratings'} />
-          <InputNumberComponent value={ratingTo} setValue={setRatingTo} placeholder={'To'} label={''} />
+        <div className={styles.inputGroup}>
+          <InputNumberComponent value={ratingFrom} setValue={setRatingFrom} placeholder="From" label="Ratings" />
+          <InputNumberComponent value={ratingTo} setValue={setRatingTo} placeholder="To" label="" />
+          <TextButton ml={8} resetFiltersHandler={resetFiltersHandler} />
         </div>
-        <TextButton resetFiltersHandler={resetFiltersHandler} />
       </div>
-      <div style={{
-        display: 'flex',
-        flexDirection: 'row',
-        width: '100%',
-        gap: '16px',
-        alignItems: 'flex-end',
-        marginTop: 24,
-        justifyContent: 'flex-end',
-      }}>
-        <DropdownComponent placeholder={'Sort by'} value={sortBy} data={sortByValues}
+      <div className={styles.sortContainer}>
+        <DropdownComponent placeholder="Sort by" value={sortBy} data={sortByValues}
                            setValue={setSortBy}
                            label="Sort by" />
       </div>

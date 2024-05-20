@@ -44,3 +44,116 @@
         color: #BD93F7;
     }
 }
+
+.sidebarComponentNavbar {
+    background-color: #F2EBF9;
+    padding: 24px;
+}
+
+.sidebarComponentLogoContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 70px;
+}
+
+.sidebarComponentLogoText {
+    color: #9854F6;
+    font-family: Poppins, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.filtersContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-end;
+    margin-top: 42px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.inputGroup {
+    display: flex;
+    gap: 8px;
+    align-items: flex-end;
+}
+
+.sortContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 16px;
+    align-items: flex-end;
+    margin-top: 24px;
+    justify-content: flex-end;
+}
+
+@media (max-width: 1024px) {
+    .filtersContainer, .sortContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebarComponentNavbar {
+        padding: 16px;
+    }
+    .sidebarComponentLogoContainer {
+        margin-bottom: 40px;
+    }
+    .sidebarComponentLogoText {
+        font-size: 20px;
+    }
+    .filtersContainer {
+        margin-top: 24px;
+        gap: 16px;
+    }
+    .inputGroup {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .sortContainer {
+        margin-top: 16px;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebarComponentNavbar {
+        padding: 12px;
+    }
+    .sidebarComponentLogoContainer {
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    .sidebarComponentLogoText {
+        font-size: 18px;
+    }
+    .filtersContainer, .sortContainer {
+        gap: 8px;
+        margin-top: 16px;
+    }
+    .inputGroup {
+        gap: 4px;
+    }
+}
+
+@media (max-width: 320px) {
+    .sidebarComponentNavbar {
+        padding: 8px;
+    }
+    .sidebarComponentLogoText {
+        font-size: 16px;
+    }
+    .filtersContainer, .sortContainer {
+        margin-top: 8px;
+    }
+    .inputGroup {
+        gap: 2px;
+    }
+}

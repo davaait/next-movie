@@ -1,0 +1,173 @@
+.movieCard {
+    width: 100%;
+    height: 218px;
+    left: 422px;
+    padding: 24px;
+    gap: 8px;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.movieCardPoster {
+    background-color: #EAEBED;
+    height: 100%;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.movieCardDetails {
+    margin-left: 16px;
+    flex-direction: column;
+    height: 100%;
+    gap: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.movieCardLink {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+    color: #9854F6;
+    cursor: pointer;
+}
+
+.movieCardReleaseDate {
+    font-weight: 400;
+    font-size: 16px;
+    color: #7B7C88;
+}
+
+.movieCardRating {
+    font-weight: 600;
+    font-size: 16px;
+    color: #000000;
+}
+
+.movieCardRatingCount {
+    font-weight: 400;
+    font-size: 16px;
+    color: #7B7C88;
+    margin-left: 4px;
+}
+
+.movieCardGenres {
+    font-weight: 400;
+    font-size: 16px;
+    color: #7B7C88;
+}
+
+.movieCardGenresText {
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+}
+
+.movieCardModalContent {
+    width: 380px;
+    height: 100%;
+}
+
+.movieCardTitle {
+    font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+    .movieCard {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+
+    .movieCardPoster {
+        width: 100px;
+        height: auto;
+    }
+
+    .movieCardDetails {
+        margin-left: 0;
+        align-items: center;
+        text-align: center;
+    }
+
+    .movieCardLink {
+        font-size: 18px;
+    }
+
+    .movieCardReleaseDate, .movieCardRating, .movieCardRatingCount, .movieCardGenres, .movieCardGenresText {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .movieCard {
+        padding: 16px;
+        gap: 8px;
+    }
+
+    .movieCardPoster {
+        width: 80px;
+    }
+
+    .movieCardDetails {
+        gap: 4px;
+    }
+
+    .movieCardLink {
+        font-size: 16px;
+    }
+
+    .movieCardReleaseDate, .movieCardRating, .movieCardRatingCount, .movieCardGenres, .movieCardGenresText {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .movieCard {
+        padding: 12px;
+        gap: 4px;
+    }
+
+    .movieCardPoster {
+        width: 60px;
+    }
+
+    .movieCardDetails {
+        gap: 2px;
+    }
+
+    .movieCardLink {
+        font-size: 14px;
+    }
+
+    .movieCardReleaseDate, .movieCardRating, .movieCardRatingCount, .movieCardGenres, .movieCardGenresText {
+        font-size: 10px;
+    }
+
+    .movieCardModalContent {
+        width: 100%;
+    }
+}
+
+@media (max-width: 320px) {
+    .movieCard {
+        padding: 8px;
+    }
+
+    .movieCardPoster {
+        width: 50px;
+    }
+
+    .movieCardLink {
+        font-size: 12px;
+    }
+
+    .movieCardReleaseDate, .movieCardRating, .movieCardRatingCount, .movieCardGenres, .movieCardGenresText {
+        font-size: 8px;
+    }
+}

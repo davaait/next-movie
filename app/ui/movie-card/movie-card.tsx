@@ -9,6 +9,7 @@ import { useDisclosure } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import styles from './movieCard.module.css';
 
 const baseUrl = process.env.NEXT_PUBLIC_TMDB_IMAGE_BASE_URL;
 
@@ -47,69 +48,32 @@ const MovieCard = ({
     window.location.reload();
   };
   return (
-    <div style={{
-      width: '100%',
-      height: 218,
-      left: '422px',
-      padding: 24,
-      gap: ' 8px',
-      borderRadius: 12,
-      backgroundColor: '#FFFFFF',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'flex-start',
-    }}>
+    <div className={styles.movieCard}>
       <Flex justify={'flex-start'} h={'100%'}>
         {posterPath ? (
           <Image width={119} height={170} style={{ width: 'auto', height: 'auto', display: 'block' }}
                  src={`${baseUrl}w500${posterPath}`}
                  alt={'Poster'} />
         ) : (
-          <div style={{
-            backgroundColor: '#EAEBED',
-            height: '100%',
-            width: '120px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
+          <div className={styles.movieCardPoster}>
             <NoPosterIcon style={{ width: rem(57), height: rem(44) }} />
           </div>
         )}
-        <div
-          style={{
-            marginLeft: 16,
-            flexDirection: 'column',
-            height: '100%',
-            gap: 8,
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}>
+        <div className={styles.movieCardDetails}>
           <Flex direction="column">
-            <Link href={`/${id}`}
-                  style={{
-                    textDecoration: 'none',
-                    fontWeight: 600,
-                    fontSize: '20px',
-                    color: '#9854F6',
-                    cursor: 'pointer',
-                  }}>{originalTitle}</Link>
-            <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>{releaseDate?.slice(0, 4)}</span>
+            <Link href={`/${id}`} className={styles.movieCardLink}>
+              {originalTitle}
+            </Link>
+            <span className={styles.movieCardReleaseDate}>{releaseDate?.slice(0, 4)}</span>
             <Flex align="center" gap={4}>
               <FilledStarIcon style={{ width: rem(28), height: rem(28) }} />
-              <span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>{voteAverage?.toFixed(1)}</span>
-              <span style={{
-                fontWeight: 400,
-                fontSize: '16px',
-                color: '#7B7C88',
-                marginLeft: '4px',
-              }}>{`(${formatNumber(voteCount)})`}</span>
+              <span className={styles.movieCardRating}>{voteAverage?.toFixed(1)}</span>
+              <span className={styles.movieCardRatingCount}>{`(${formatNumber(voteCount)})`}</span>
             </Flex>
           </Flex>
           <Group>
-            <span style={{ fontWeight: 400, fontSize: '16px', color: '#7B7C88' }}>Genres</span>
-            <span
-              style={{ fontWeight: 400, fontSize: '16px', color: '#000000' }}>{getGenresText(genreIds, genres)}</span>
+            <span className={styles.movieCardGenres}>Genres</span>
+            <span className={styles.movieCardGenresText}>{getGenresText(genreIds, genres)}</span>
           </Group>
         </div>
       </Flex>
@@ -126,9 +90,9 @@ const MovieCard = ({
         </div>
       </Flex>
       <Modal size="auto" radius={'md'} opened={opened} onClose={close} centered title={'Your rating'}>
-        <div style={{ width: 380, height: '100%' }}>
+        <div className={styles.movieCardModalContent}>
           <Divider size="xs" />
-          <p style={{ fontWeight: 700 }}>{originalTitle}</p>
+          <p className={styles.movieCardTitle}>{originalTitle}</p>
           <Rating w={'100%'} count={10} value={value} onChange={setValue}
                   emptySymbol={<StarIcon style={{ width: rem(28), height: rem(28), marginRight: 10 }} />}
                   fullSymbol={<FilledStarIcon style={{ width: rem(28), height: rem(28), marginRight: 10 }} />} />

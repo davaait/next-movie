@@ -1,0 +1,187 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 40px;
+    background-color: #F5F5F6;
+}
+
+.content {
+    width: 800px;
+    min-height: 100vh;
+}
+
+.noImagePoster {
+    margin-top: 20px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 24px;
+    height: 400px;
+    width: 100%;
+}
+
+.noPosterContainer {
+    background-color: #EAEBED;
+    height: 100%;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.posterImage {
+    width: auto;
+    height: auto;
+    display: block;
+}
+
+.movieTitle {
+    font-weight: 600;
+    font-size: 20px;
+    color: #9854F6;
+    cursor: pointer;
+}
+
+.movieYear {
+    font-weight: 400;
+    font-size: 16px;
+    color: #7B7C88;
+}
+
+.rating {
+    font-weight: 600;
+    font-size: 16px;
+    color: #000000;
+}
+
+.voteCount {
+    font-weight: 400;
+    font-size: 16px;
+    color: #7B7C88;
+    margin-left: 4px;
+}
+
+.detailsGrid {
+    max-width: 320px;
+    margin-top: 24px;
+}
+
+.detailLabel {
+    color: #7B7C88;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.detailValue {
+    color: #000000;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.trailerContainer {
+    margin-top: 20px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    padding: 24px;
+    min-height: 400px;
+    height: 100%;
+    width: 100%;
+}
+
+.sectionTitle {
+    margin-bottom: 16px;
+    font-weight: 700;
+    font-size: 20px;
+    color: #000000;
+}
+
+.description {
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+    line-height: 22px;
+}
+
+.productionCompany {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.productionCompanyLogo {
+    border-radius: 50%;
+    border: 0.5px solid #F1F1F1;
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.productionCompanyFallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 0.5px solid #F1F1F1;
+    width: 40px;
+    height: 40px;
+}
+
+@media (max-width: 1024px) {
+    .content {
+        width: 90%;
+    }
+
+    .trailerContainer, .noImagePoster {
+        width: 100%;
+        padding: 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        width: 100%;
+    }
+
+    .detailsGrid {
+        max-width: 100%;
+        grid-template-columns: 1fr;
+    }
+
+    .noPosterContainer {
+        width: 100%;
+    }
+
+    .movieTitle, .movieYear, .rating, .voteCount, .detailLabel, .detailValue, .description, .sectionTitle {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .content {
+        width: 100%;
+        padding: 0 16px;
+    }
+
+    .detailsGrid {
+        max-width: 100%;
+    }
+
+    .movieTitle, .movieYear, .rating, .voteCount, .detailLabel, .detailValue, .description, .sectionTitle {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 320px) {
+    .content {
+        width: 100%;
+        padding: 0 8px;
+    }
+
+    .detailsGrid {
+        max-width: 100%;
+    }
+
+    .movieTitle, .movieYear, .rating, .voteCount, .detailLabel, .detailValue, .description, .sectionTitle {
+        font-size: 10px;
+    }
+}
