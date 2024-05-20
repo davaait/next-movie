@@ -48,7 +48,7 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
                 <Image
                   width={250}
                   height={352}
-                  className={styles.posterImage}
+                  // className={styles.posterImage}
                   src={`${baseUrl}w500${data.poster_path}`}
                   alt={'Poster'}
                 />
@@ -72,7 +72,7 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
                     <span className={styles.detailLabel}>Duration</span>
                     <span className={styles.detailValue}>{`${minutesToHoursMinutes(data.runtime)}`}</span>
                     <span className={styles.detailLabel}>Premiere</span>
-                    <time dateTime={data.release_date}>{format(date!, 'LLLL d, yyyy')}</time>
+                    <time className={styles.detailValue} dateTime={data.release_date}>{format(date!, 'LLLL d, yyyy')}</time>
                     <span className={styles.detailLabel}>Budget</span>
                     <span className={styles.detailValue}>{`$${data.budget}`}</span>
                     <span className={styles.detailLabel}>Gross worldwide</span>
@@ -127,7 +127,7 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
               <span className={styles.description}>{data.overview}</span>
               <Divider mt={20} mb={20} />
               <span className={styles.sectionTitle}>Production</span>
-              {data.production_companies.map((el, index: number) => (
+              {data.production_companies?.map((el, index: number) => (
                 <Flex align={'center'} gap={8} key={index} mb={12} className={styles.productionCompany}>
                   {el.logo_path ? (
                     <img

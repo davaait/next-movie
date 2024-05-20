@@ -12,11 +12,14 @@
 }
 
 .imagePoster {
+    display: flex;
+    flex-direction: row;
     margin-top: 20px;
     background-color: #FFFFFF;
     border-radius: 12px;
     padding: 24px;
-    height: 400px;
+    min-height: 400px;
+    height: 100%;
     width: 100%;
 }
 
@@ -167,9 +170,17 @@
 }
 
 @media (max-width: 780px) {
+    .container {
+        padding-top: 20px;
+    }
+
     .content {
         width: 100%;
         padding: 0 16px;
+    }
+
+    .imagePoster {
+        flex-direction: column;
     }
 
     .detailsGrid {

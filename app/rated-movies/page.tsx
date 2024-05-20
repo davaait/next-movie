@@ -45,7 +45,7 @@ const Page = () => {
   const { data, isLoading } = useSWR('api/genres', fetcher);
   useEffect(() => {
     const movieKeys = Object.keys(localStorage).filter((item: string) => item.includes('movie/'));
-    const moviesData: MovieI[] = movieKeys.map(key => {
+    const moviesData: MovieI[] = movieKeys?.map(key => {
       const lsItem = localStorage.getItem(key);
       if (lsItem) {
         return JSON.parse(lsItem);
@@ -85,7 +85,7 @@ const Page = () => {
               />
             </Flex>
             <SimpleGrid cols={{ base: 2, sm: 2 }} spacing="md" className={styles.grid}>
-              {currentMovies.map((el, index) => (
+              {currentMovies?.map((el, index) => (
                 <MovieCard
                   id={el.id}
                   key={index}
