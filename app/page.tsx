@@ -27,7 +27,7 @@ export default function HomePage() {
     setPage(1);
   }, [genreValue, genreValue, releaseYear, ratingFrom, ratingTo, sortBy]);
   const { data } = useSWR('api/genres', fetcher);
-  const genres = data && data.genres.map((el: GenreType) => ({ value: el.id.toString(), label: el.name }));
+  const genres = data.genres?.map((el: GenreType) => ({ value: el.id.toString(), label: el.name }));
   const {
     data: moviesData,
     isLoading,
