@@ -1,14 +1,34 @@
 .movieCard {
     width: 100%;
-    height: 218px;
-    left: 422px;
+    max-height: 218px;
+    height: 100%;
     padding: 24px;
-    gap: 8px;
     border-radius: 12px;
     background-color: #FFFFFF;
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.movieCardInnerContainer {
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+}
+
+.starRating {
+    flex-direction: row;
+}
+
+.movieCardDetails {
+    margin-left: 16px;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
+    height: 100%;
 }
 
 .movieCardPoster {
@@ -20,18 +40,7 @@
     justify-content: center;
 }
 
-.movieCardDetails {
-    margin-left: 16px;
-    flex-direction: column;
-    height: 100%;
-    gap: 8px;
-    display: flex;
-    justify-content: space-between;
-}
-
 .movieCardLink {
-    max-width: 300px;
-    width: 100%;
     text-decoration: none;
     font-weight: 600;
     font-size: 20px;
@@ -85,24 +94,24 @@
     font-weight: 700;
 }
 
-@media (max-width: 1024px) {
+.detailsInnerContainer {
+    max-width: 234px;
+    width: 100%;
+}
+
+@media (max-width: 1270px) {
+    .detailsInnerContainer {
+        max-width: 170px;
+    }
+}
+
+@media (max-width: 1380px) {
     .movieCard {
-        flex-direction: column;
-        align-items: center;
-        height: auto;
+        padding: 14px;
     }
+}
 
-    .movieCardPoster {
-        width: 100px;
-        height: auto;
-    }
-
-    .movieCardDetails {
-        margin-left: 0;
-        align-items: center;
-        text-align: center;
-    }
-
+@media (max-width: 1024px) {
     .movieCardLink {
         font-size: 18px;
     }
@@ -113,15 +122,6 @@
 }
 
 @media (max-width: 768px) {
-    .movieCard {
-        padding: 16px;
-        gap: 8px;
-    }
-
-    .movieCardPoster {
-        width: 80px;
-    }
-
     .movieCardDetails {
         gap: 4px;
     }
@@ -137,8 +137,27 @@
 
 @media (max-width: 480px) {
     .movieCard {
-        padding: 12px;
+        max-height: 100%;
+        padding: 8px;
         gap: 4px;
+    }
+
+    .starRating {
+        flex-direction: column;
+    }
+
+    .detailsInnerContainer {
+        max-width: 140px;
+    }
+
+    .movieCardInnerContainer {
+        flex-direction: column;
+        justify-content: flex-start;
+        max-width: 90%;
+    }
+
+    .movieCardDetails {
+        margin-top: 10px;
     }
 
     .movieCardPoster {
@@ -150,11 +169,11 @@
     }
 
     .movieCardLink {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .movieCardReleaseDate, .movieCardRating, .movieCardRatingCount, .movieCardGenres, .movieCardGenresText {
-        font-size: 10px;
+        font-size: 14px;
     }
 
     .movieCardModalContent {
@@ -164,11 +183,7 @@
 
 @media (max-width: 320px) {
     .movieCard {
-        padding: 8px;
-    }
-
-    .movieCardPoster {
-        width: 50px;
+        padding: 5px;
     }
 
     .movieCardLink {

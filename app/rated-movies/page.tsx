@@ -84,7 +84,7 @@ const Page = () => {
                 }
               />
             </Flex>
-            <SimpleGrid cols={{ base: 2, sm: 2 }} spacing="md" className={styles.grid}>
+            <SimpleGrid cols={{ xs: 1, sm: 1, lg: 2, xl: 2 }} spacing="md" className={styles.grid}>
               {currentMovies?.map((el, index) => (
                 <MovieCard
                   id={el.id}

@@ -49,12 +49,11 @@ const MovieCard = ({
   };
   return (
     <div className={styles.movieCard}>
-      <Flex justify={'flex-start'} h={'100%'}>
+      <Flex className={styles.movieCardInnerContainer}>
         {posterPath ? (
           <Image width={119} height={170}
                  src={`${baseUrl}w500${posterPath}`}
                  alt={'Poster'}
-                 style={{ width: 'auto', height: 'auto' }}
           />
         ) : (
           <div className={styles.movieCardPoster}>
@@ -62,7 +61,7 @@ const MovieCard = ({
           </div>
         )}
         <div className={styles.movieCardDetails}>
-          <Flex direction="column">
+          <Flex direction="column" className={styles.detailsInnerContainer}>
             <Tooltip label={originalTitle}>
               <Link href={`/${id}`} className={styles.movieCardLink}>
                 {originalTitle}
@@ -75,7 +74,7 @@ const MovieCard = ({
               <span className={styles.movieCardRatingCount}>{`(${formatNumber(voteCount)})`}</span>
             </Flex>
           </Flex>
-          <Flex style={{ maxWidth: 250, width: '100%', gap: 8 }}>
+          <Flex style={{ maxWidth: 220, width: '100%', gap: 8 }}>
             <span className={styles.movieCardGenres}>Genres</span>
             <Tooltip label={getGenresText(genreIds, genres)}>
               <span className={styles.movieCardGenresText}>{getGenresText(genreIds, genres)}</span>
@@ -83,17 +82,15 @@ const MovieCard = ({
           </Flex>
         </div>
       </Flex>
-      <Flex align={'center'} gap={4}>
-        <div onClick={open}>
-          {!!valueFromLS ? (
-            <Flex align={'center'} gap={6}>
-              <BlueStarIcon style={{ width: rem(28), height: rem(28), cursor: 'pointer' }} />
-              <span style={{ fontWeight: 600, fontSize: '16px', color: '#000000' }}>{value}</span>
-            </Flex>
-          ) : (
-            <StarIcon style={{ width: rem(28), height: rem(28), cursor: 'pointer' }} />
-          )}
-        </div>
+      <Flex onClick={open} align={'flex-start'} h={'100%'} gap={4}>
+        {!!valueFromLS ? (
+          <Flex className={styles.starRating} align={'center'} gap={6}>
+            <BlueStarIcon style={{ width: rem(28), height: rem(28), cursor: 'pointer' }} />
+            <span className={styles.movieCardRating}>{value}</span>
+          </Flex>
+        ) : (
+          <StarIcon style={{ width: rem(28), height: rem(28), cursor: 'pointer' }} />
+        )}
       </Flex>
       <Modal size="auto" radius={'md'} opened={opened} onClose={close} centered title={'Your rating'}>
         <div className={styles.movieCardModalContent}>
