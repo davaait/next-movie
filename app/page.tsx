@@ -26,12 +26,13 @@ export default function HomePage() {
   useEffect(() => {
     setPage(1);
   }, [genreValue, genreValue, releaseYear, ratingFrom, ratingTo, sortBy]);
-  const { data } = useSWR('api/genres', fetcher);
-  const genres = data.genres?.map((el: GenreType) => ({ value: el.id.toString(), label: el.name }));
+  const { data, error } = useSWR('api/genres', fetcher);
   const {
     data: moviesData,
     isLoading,
   } = useSWR(`api/movies?with_genres=${genreValue}&primary_release_year=${releaseYear}&vote_average.lte=${ratingTo}&vote_average.gte=${ratingFrom}&sort_by=${sortBy}&page=${activePage}`, fetcher);
+  if (error) return <Loading />;
+  const genres = data?.genres?.map((el: GenreType) => ({ value: el.id.toString(), label: el.name }));
   return (
     <LayoutComponent>
       <div className={styles.mainPageContainer}>
