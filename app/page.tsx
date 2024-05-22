@@ -25,6 +25,11 @@ export default function HomePage() {
   };
   useEffect(() => {
     setPage(1);
+    if (Number(ratingFrom) < 0 || Number(ratingFrom) > 10) {
+      setRatingFrom(0);
+    } else if (Number(ratingTo) < 0 || Number(ratingTo) > 10) {
+      setRatingTo(10);
+    }
   }, [genreValue, genreValue, releaseYear, ratingFrom, ratingTo, sortBy]);
   const { data, error } = useSWR('api/genres', fetcher);
   const {

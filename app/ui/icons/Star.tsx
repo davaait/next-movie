@@ -4,7 +4,7 @@ interface StarIconProps extends React.ComponentPropsWithoutRef<'svg'> {
   size?: number | string;
 }
 
-export function StarIcon({ size, style, ...others }: StarIconProps) {
+export function StarIcon({ size, style }: StarIconProps) {
   return (
     <svg style={{ width: rem(size), height: rem(size), ...style }} viewBox="0 0 28 28" fill="none"
          xmlns="http://www.w3.org/2000/svg">

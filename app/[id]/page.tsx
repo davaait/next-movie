@@ -131,8 +131,17 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
               {data.production_companies?.map((el, index: number) => (
                 <Flex align={'center'} gap={8} key={index} mb={12} className={styles.productionCompany}>
                   {el.logo_path ? (
-                    <img
+                    <Image
+                      width={40}
+                      height={40}
                       className={styles.productionCompanyLogo}
+                      style={{
+                        borderRadius: '50%',
+                        border: '0.5px solid #F1F1F1',
+                        width: '40px',
+                        height: '40px',
+                        objectFit: 'contain',
+                      }}
                       src={`${baseUrl}original${el.logo_path}`}
                       alt={'Poster'}
                     />

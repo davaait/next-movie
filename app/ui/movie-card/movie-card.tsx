@@ -5,7 +5,7 @@ import { StarIcon } from '../icons/Star';
 import { BlueStarIcon } from '../icons/BlueStar';
 import { MovieCardProps, MovieI } from '../../lib/definitions';
 import { formatNumber, getGenresText } from '../../lib/utils';
-import { useDisclosure } from '@mantine/hooks';
+import { useDisclosure, useMediaQuery } from '@mantine/hooks';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -23,6 +23,12 @@ const MovieCard = ({
                      posterPath,
                      genreIds,
                    }: MovieCardProps) => {
+  const isMobile = useMediaQuery('(max-width: 480px');
+  const starIconStyle = {
+    width: isMobile ? rem(20) : rem(28),
+    height: isMobile ? rem(20) : rem(28),
+    marginRight: isMobile ? 5 : 10,
+  };
   const [opened, { open, close }] = useDisclosure(false);
   const [value, setValue] = useState(0);
   const valueFromLS = localStorage.getItem(`movie/${id}`);
@@ -97,8 +103,8 @@ const MovieCard = ({
           <Divider size="xs" />
           <p className={styles.movieCardTitle}>{originalTitle}</p>
           <Rating w={'100%'} count={10} value={value} onChange={setValue}
-                  emptySymbol={<StarIcon style={{ width: rem(28), height: rem(28), marginRight: 10 }} />}
-                  fullSymbol={<FilledStarIcon style={{ width: rem(28), height: rem(28), marginRight: 10 }} />} />
+                  emptySymbol={<StarIcon style={starIconStyle} />}
+                  fullSymbol={<FilledStarIcon style={starIconStyle} />} />
           <Group mt={16}>
             <Button onClick={saveRatingToLS} variant="filled" color="#9854F6" radius="md">Save</Button>
             <Button onClick={removeRatingFromLS} variant="subtle" radius="md">Remove rating</Button>

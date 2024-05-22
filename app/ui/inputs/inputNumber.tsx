@@ -4,6 +4,7 @@ import { NumberInput, NumberInputHandlers, rem } from '@mantine/core';
 import { ArrowDownIcon } from '../icons/ArrowDownIcon';
 import { ArrowUpIcon } from '../icons/ArrowUpIcon';
 import { useRef } from 'react';
+import styles from '../components.module.css';
 
 interface InputNumberComponentProps {
   label: string;
@@ -19,7 +20,7 @@ const InputNumberComponent = ({ label, placeholder, value, setValue }: InputNumb
       value={value}
       onChange={setValue}
       handlersRef={handlersRef}
-      style={{ maxWidth: 138, width: '100%', label: { fontStyle: 'Inter', fontSize: '16px', fontWeight: 700 } }}
+      classNames={{ label: styles.numberInputLabel, root: styles.numberInputRoot }}
       size="sm"
       radius="md"
       max={10}

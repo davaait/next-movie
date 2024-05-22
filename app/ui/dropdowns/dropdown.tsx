@@ -19,6 +19,7 @@ const DropdownComponent = ({ value, setValue, label, data, placeholder }: Native
       renderOption={renderSelectOption}
       placeholder={placeholder}
       styles={{
+        label: { fontWeight: 700 },
         option: { padding: 0, borderRadius: '8px' },
         dropdown: { maxHeight: 200, overflowY: 'auto', padding: '4px' },
       }}

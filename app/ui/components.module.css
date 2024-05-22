@@ -20,6 +20,15 @@
     }
 }
 
+.numberInputRoot {
+    max-width: 138px;
+    width: 100%
+}
+
+.numberInputLabel {
+    font-weight: 700;
+}
+
 .link-active {
     color: #9854F6;
     font-weight: 600;
