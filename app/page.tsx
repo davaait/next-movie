@@ -12,8 +12,10 @@ import EmptyState from './ui/empty-state/empty-state';
 import Loading from './[id]/loading';
 import LayoutComponent from './ui/layout/layout-component';
 import styles from './ui/components.module.css';
+import { useMediaQuery } from '@mantine/hooks';
 
 export default function HomePage() {
+  const isMobile = useMediaQuery('(max-width: 768px');
   const [activePage, setPage] = useState(1);
   const [genreValue, setGenreValue] = useState('');
   const [releaseYear, setReleaseYear] = useState('');
@@ -57,7 +59,7 @@ export default function HomePage() {
                            releaseDate={el.release_date} posterPath={el.poster_path} genreIds={el.genre_ids} />
               ))}
             </SimpleGrid>
-            <Flex bg={'#F5F5F6'} justify={'flex-end'} align={'center'}>
+            <Flex bg={'#F5F5F6'} direction={'row'} justify={isMobile ? 'center' : 'flex-end'} align={'center'}>
               <Pagination boundaries={0} color="#9854F6" siblings={1} value={activePage} onChange={setPage}
                           total={moviesData?.total_pages} mt={24} mb={24} />
             </Flex>
