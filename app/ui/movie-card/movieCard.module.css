@@ -33,8 +33,10 @@
 
 .movieCardPoster {
     background-color: #EAEBED;
-    height: 100%;
-    width: 120px;
+    max-height: 100%;
+    height: 170px;
+    max-width: 100%;
+    width: 119px;
     display: flex;
     align-items: center;
     justify-content: center;
