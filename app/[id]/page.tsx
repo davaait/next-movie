@@ -48,7 +48,6 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
                 <Image
                   width={250}
                   height={352}
-                  // className={styles.posterImage}
                   src={`${baseUrl}w500${data.poster_path}`}
                   alt={'Poster'}
                 />
@@ -60,7 +59,7 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
               <Flex direction={'column'} ml={16} justify={'space-between'}>
                 <Flex direction="column" className={styles.titleContainer}>
                   <span className={styles.movieTitle}>{data.original_title}</span>
-                  <span className={styles.movieYear}>{format(date!, 'yyyy')}</span>
+                  <span className={styles.movieYear}>{date ? format(date!, 'yyyy') : ''}</span>
                   <Flex align="center" gap={4}>
                     <FilledStarIcon style={{ width: rem(28), height: rem(28) }} />
                     <span className={styles.rating}>{data.vote_average.toFixed(1)}</span>
@@ -73,7 +72,7 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
                     <span className={styles.detailValue}>{`${minutesToHoursMinutes(data.runtime)}`}</span>
                     <span className={styles.detailLabel}>Premiere</span>
                     <time className={styles.detailValue}
-                          dateTime={data.release_date}>{format(date!, 'LLLL d, yyyy')}</time>
+                          dateTime={data.release_date}>{date ? format(date!, 'LLLL d, yyyy') : ''}</time>
                     <span className={styles.detailLabel}>Budget</span>
                     <span className={styles.detailValue}>{`$${data.budget}`}</span>
                     <span className={styles.detailLabel}>Gross worldwide</span>
@@ -92,7 +91,7 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
                     </Flex>
                     <Flex className={styles.detailsColumn} direction={'column'}>
                       <span className={styles.detailValue}>{`${minutesToHoursMinutes(data.runtime)}`}</span>
-                      <time dateTime={data.release_date}>{format(date!, 'LLLL d, yyyy')}</time>
+                      <time dateTime={data.release_date}>{date ? format(date!, 'LLLL d, yyyy') : ''}</time>
                       <span className={styles.detailValue}>{`$${data.budget}`}</span>
                       <span className={styles.detailValue}>{`$${data.revenue}`}</span>
                       <Tooltip label={movieGenres}>
@@ -109,7 +108,6 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
                 position: 'relative',
                 width: '100%',
                 maxWidth: '500px',
-                // paddingBottom: '56.25%',
                 height: 281,
                 overflow: 'hidden',
                 borderRadius: '9px',
