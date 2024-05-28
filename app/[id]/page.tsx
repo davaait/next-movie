@@ -36,7 +36,7 @@ const Page = ({ params: { id } }: CurrentMoviePropsType) => {
     return <NotFound />;
   }
   const movieGenres = data?.original_title && data.genres.map(el => el.name).join();
-  const date = data?.original_title && parseISO(data.release_date);
+  const date = data.release_date ? parseISO(data.release_date) : '';
   return (
     <LayoutComponent>
       <Flex align={'center'} direction={'column'} className={styles.container}>
